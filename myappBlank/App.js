@@ -1,29 +1,33 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 import { Button } from 'react-native-web';
+import React,{useState} from 'react';
 
 const Texto= () => {
-  const { children } = props;
+  const [contenido,setContenido] = useState('Hola Mundo')
+  const actualizarTexto = () => {setContenido('State Modificado')}
   return (
-    <Text> {children} </Text>
+    <Text onPress={actualizarTexto}> {contenido} </Text>
   )
 }
 
-
 export default function App() {
+const [contenido,setContenido] = useState('Aque no me tocas')
+const actualizarBoton = () => {setContenido('Aplastado')}
   return (
 
     <View style={styles.container}>
           <StatusBar style="auto" />
-      <Text >"Hola"</Text>
-      <Text >"Mundo"</Text>
-      <Text >React Native</Text>
-
-      <Button title='Presioname'></Button>
+      <Texto></Texto>
+      <Texto></Texto>
+      <Texto></Texto>
+      <Button
+      onPress={actualizarBoton} 
+      title={contenido} 
+      ></Button>
     </View>
   );
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
