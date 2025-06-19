@@ -1,11 +1,16 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, FlatList } from 'react-native';
+import { StyleSheet, Text, View, SectionList } from 'react-native';
 import React, { useState } from 'react';
 
-const datos = [
-  { id: '1', nombre: 'Manzana' },
-  { id: '2', nombre: 'Banana' },
-  { id: '3', nombre: 'Cereza' },
+const secciones = [
+  {
+    title: 'Frutas',
+    data: ['Manzana', 'Banana', 'Cereza'],
+  },
+  {
+    title: 'Verduras',
+    data: ['Lechuga', 'Zanahoria', 'Pepino'],
+  },
 ];
 
 const Item = ({ nombre }) => {
@@ -22,13 +27,16 @@ export default function App() {
   return (
     <View style={styles.container}>
       <StatusBar style="auto" />
-      <FlatList
-        data={datos}
-        keyExtractor={item => item.id}
+      <SectionList
+        sections={secciones}
+        keyExtractor={(item, index) => item + index}
         renderItem={({ item }) => (
           <View style={styles.itemBox}>
-            <Item nombre={item.nombre} />
+            <Item nombre={item} />
           </View>
+        )}
+        renderSectionHeader={({ section: { title } }) => (
+          <Text style={styles.header}>{title}</Text>
         )}
       />
     </View>
@@ -42,14 +50,22 @@ const styles = StyleSheet.create({
     paddingTop: 50,
     paddingHorizontal: 20,
   },
+  header: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    backgroundColor: '#ccc',
+    padding: 8,
+    borderRadius: 5,
+    marginTop: 10,
+  },
   itemBox: {
-    backgroundColor: '#f9c2ff',
-    padding: 15,
-    marginVertical: 8,
+    backgroundColor: '#f0a',
+    padding: 12,
+    marginVertical: 6,
     borderRadius: 10,
   },
   itemText: {
-    fontSize: 20,
-    color: '#000',
+    fontSize: 18,
+    color: '#fff',
   },
 });
