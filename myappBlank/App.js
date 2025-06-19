@@ -1,49 +1,55 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-import { Button } from 'react-native-web';
-import React,{useState} from 'react';
+import { StyleSheet, Text, View, FlatList } from 'react-native';
+import React, { useState } from 'react';
 
-const Texto= ({style}) => {
-  const [contenido,setContenido] = useState('Hola Mundo')
-  const actualizarTexto = () => {setContenido('State Modificado')}
+const datos = [
+  { id: '1', nombre: 'Manzana' },
+  { id: '2', nombre: 'Banana' },
+  { id: '3', nombre: 'Cereza' },
+];
+
+const Item = ({ nombre }) => {
+  const [texto, setTexto] = useState(nombre);
+  const cambiarTexto = () => setTexto('¡Modificado!');
   return (
-    <Text style={[styles.text,style]} onPress={actualizarTexto}> {contenido} </Text>
-  )
-}
+    <Text style={styles.itemText} onPress={cambiarTexto}>
+      {texto}
+    </Text>
+  );
+};
 
 export default function App() {
-const [contenido,setContenido] = useState('Aque no me tocas')
-const actualizarBoton = () => {setContenido('Aplastado')}
   return (
-
     <View style={styles.container}>
-          <StatusBar style="auto" />
-      <Texto style={styles.rojo}></Texto>
-      <Texto style={styles.amarillo}></Texto>
-      <Texto style={styles.verde}></Texto>
-      <Button
-      onPress={actualizarBoton} 
-      title={contenido} 
-      ></Button>
-    </View>
-  );
+      <StatusBar style="auto" />
+      <FlatList
+        data={datos}
+        keyExtractor={item => item.id}
+        renderItem={({ item }) => (
+          <View style={styles.itemBox}>
+            <Item nombre={item.nombre} />
+          </View>
+        )}
+      />
+    </View>
+  );
 }
-//3,Estilos
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#000',
-    alignItems: 'center',
-    justifyContent: 'space-evenly',
-    flexDirection: 'row',
+    backgroundColor: '#222',
+    paddingTop: 50,
+    paddingHorizontal: 20,
   },
-  text: {
-    color: 'blask',
-    fontSize: 28,
+  itemBox: {
+    backgroundColor: '#f9c2ff',
+    padding: 15,
+    marginVertical: 8,
+    borderRadius: 10,
   },
-  rojo:{backgroundColor: 'red'},
-  amarillo:{backgroundColor: 'yellow'},
-  verde:{backgroundColor: 'green'}
+  itemText: {
+    fontSize: 20,
+    color: '#000',
+  },
 });
-
-
