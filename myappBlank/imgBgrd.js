@@ -2,6 +2,20 @@ import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Text, ImageBackground, ActivityIndicator } from "react-native";
 
 export default function App() {
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        setTimeout(() => setLoading(false), 6000);
+    }, []);
+
+    if (loading) {
+        return (
+            <View style={styles.splash}>
+                <Text style={styles.splashText}>Cargando...</Text>
+                <ActivityIndicator size="large" color="white" />
+            </View>
+        );
+    }
     return (
         <ImageBackground
             source={{ uri: 'https://wallpapers.com/images/featured/fondos-de-paisajes-naturales-k9tfch0hpfjbaxel.jpg' }}
@@ -31,6 +45,18 @@ const styles = StyleSheet.create({
     text: {
         color: 'white',
         fontSize: 24
+    },
+    splash: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: '#000'
+    },
+    splashText: {
+        color: '#fff',
+        fontSize: 24,
+        marginBottom: 20
     }
+
 }
 )

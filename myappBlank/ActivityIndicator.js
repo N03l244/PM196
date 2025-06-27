@@ -53,4 +53,6 @@ const styles = StyleSheet.create({
     loader:{
         marginVertical:20,
     }
+
+    
 });
